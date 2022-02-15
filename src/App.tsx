@@ -1,4 +1,3 @@
-import { useFetch } from './hooks/useFetch'
 
 type Repository = {
   full_name: string;
