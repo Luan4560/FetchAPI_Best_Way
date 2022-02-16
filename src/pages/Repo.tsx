@@ -1,27 +1,28 @@
 import { useQueryClient } from "react-query";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom"
 import { Repository } from "./Repos";
 
 export function Repo() {
   const params = useParams()
   const currentRepository = params['*'] as string;
-
-  const queryClient = useQueryClient();
-
+  
+  const queryClient = useQueryClient()
+  
   async function handleChangeRepositoryDescription() {
+    // chamada API pra atualizar a descrição do repositório
 
     const previousRepos = queryClient.getQueryData<Repository[]>('repos')
 
-    if(previousRepos) {
+    if (previousRepos) {
       const nextRepos = previousRepos.map(repo => {
-        if(repo.full_name === currentRepository) {
-          return {...repo, description: 'Testando'}
+        if (repo.full_name === currentRepository) {
+          return { ...repo, description: 'Testando' }
         } else {
           return repo;
         }
       })
 
-      queryClient.setQueriesData('respos', nextRepos)
+      queryClient.setQueryData('repos', nextRepos)
     }
   }
 
